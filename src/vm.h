@@ -1,7 +1,7 @@
 #pragma once
 
 #include <napi.h>
-#include "../randomx.h"
+#include "../binaries/randomx.h"
 #include <stdexcept>
 #include <iostream>
 #include <sstream>

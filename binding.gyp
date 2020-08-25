@@ -19,12 +19,13 @@
       'conditions': [
           ['OS=="linux"', {
             "libraries": [
-              "../librandomx.a"
+              "../binaries/librandomx.a"
             ],
           }],
           ['OS=="win"', {
             "libraries": [
-              "../randomx.lib"
+              # "../../RandomX/build-mingw/librandomx.a"
+              "../binaries/randomx.lib"
             ],
           }],
        ],
