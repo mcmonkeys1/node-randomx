@@ -1,5 +1,4 @@
 #include "vm.h"
-#include <iostream>
 
 bool getFlag(std::string str, std::vector<std::string> v){
 	return std::find(v.begin(), v.end(), str) != v.end();
@@ -7,22 +6,22 @@ bool getFlag(std::string str, std::vector<std::string> v){
 
 Napi::Object CreateVM(const Napi::CallbackInfo& info) {
     Napi::Env env = info.Env();
-   	// Napi::String a = info[0].As<Napi::String>();
+		if (info.Length() != 2) {
+			throw Napi::Error::New(env, "C++ error. Expected exactly two arguments");
+		}
 		if(!info[0].IsArrayBuffer()){
 			throw Napi::Error::New(env, "C++ error. Expected a UInt8Array");
 		}
-		Napi::ArrayBuffer arr = info[0].As<Napi::ArrayBuffer>();
-   	Napi::Array buf = info[1].As<Napi::Array>();
-		
-	// std::string key(a.Utf8Value());
-	const std::uint8_t* keyArr = reinterpret_cast<std::uint8_t*>(arr.Data());
-	const int keyArrSize = arr.ByteLength() / sizeof(std::uint8_t);
+   	Napi::ArrayBuffer arrBuf = info[0].As<Napi::ArrayBuffer>();
+   	Napi::Array arrFlags = info[1].As<Napi::Array>();
 
-	std::vector<std::string> nflags(buf.Length());
-	for(int i  = 0; i < buf.Length(); i++){
-		Napi::Value val = buf[i];
+	const std::uint8_t* key = reinterpret_cast<std::uint8_t*>(arrBuf.Data());
+	const int keySize = arrBuf.ByteLength() / sizeof(std::uint8_t);
+
+	std::vector<std::string> nflags(arrFlags.Length());
+	for(int i  = 0; i < arrFlags.Length(); i++){
+		Napi::Value val = arrFlags[i];
 		nflags.push_back(val.ToString());
-				std::cerr << "flag--" << val.ToString() << std::endl;
 	}
 
 	randomx_flags flags = randomx_get_flags();
@@ -53,18 +52,12 @@ Napi::Object CreateVM(const Napi::CallbackInfo& info) {
 		flags |= RANDOMX_FLAG_FULL_MEM;
 	}
 
-std::cerr << "We're back baby! 00x" << std::endl;
-
 	randomx_cache *myCache = randomx_alloc_cache(flags);
 	if (myCache == nullptr) {
 		throw Napi::Error::New(env, "C++ error: randomx_alloc_cache() error");
 	}
 
-std::cerr << "We're back baby! 00y" << std::endl;
-
-std::cerr << "We're back baby! 003" << std::endl;
-	randomx_init_cache(myCache, keyArr, keyArrSize);
-std::cerr << "We're back baby! 004" << std::endl;
+	randomx_init_cache(myCache, key, keySize);
 	randomx_dataset* dataset = nullptr;
 	if(mining){
 		dataset = randomx_alloc_dataset(flags);
