@@ -79,15 +79,24 @@ Napi::Object CreateVM(const Napi::CallbackInfo& info) {
 	return obj;
 }
 
-Napi::String CalcHash(const Napi::CallbackInfo& info) {
-   	char hash[RANDOMX_HASH_SIZE];
-	NrandomxVM* nvm = Napi::ObjectWrap<NrandomxVM>::Unwrap(info[0].As<Napi::Object>());
-   	Napi::String a = info[1].As<Napi::String>();
-	std::string input(a.Utf8Value());
+Napi::ArrayBuffer CalcHash(const Napi::CallbackInfo& info) {
+	  Napi::Env env = info.Env();
+		if (info.Length() != 2) {
+			throw Napi::Error::New(env, "C++ error. Expected exactly two arguments");
+		}
+		NrandomxVM* nvm = Napi::ObjectWrap<NrandomxVM>::Unwrap(info[0].As<Napi::Object>());
+		if(!info[1].IsArrayBuffer()){
+			throw Napi::Error::New(env, "C++ error. Expected a UInt8Array");
+		}
+   	Napi::ArrayBuffer arrBuf = info[1].As<Napi::ArrayBuffer>();
+	
+	static std::uint8_t hash[RANDOMX_HASH_SIZE];
 
-	uint32_t isize = input.size() + 1;
-	const char* myInput = input.c_str();
-	randomx_calculate_hash(nvm->vm, myInput, isize, hash);
+	const std::uint8_t* data = reinterpret_cast<std::uint8_t*>(arrBuf.Data());
+	const int dataSize = arrBuf.ByteLength() / sizeof(std::uint8_t);
+
+
+	randomx_calculate_hash(nvm->vm, data, dataSize, hash);
 
 	//randomx_dataset* dataset;
 	//randomx_get_dataset_memory(dataset);
@@ -95,11 +104,8 @@ Napi::String CalcHash(const Napi::CallbackInfo& info) {
 	//randomx_destroy_vm(nvm->vm);
 	//randomx_release_dataset(dataset);
 
-	std::stringstream ss;
-	for (int i = 0; i < RANDOMX_HASH_SIZE; ++i)
-	    ss << std::setfill('0') << std::setw(2) << std::hex << (0xff & (unsigned int)hash[i]);
-
-	return Napi::String::New(info.Env(), ss.str());
+	// static Napi::ArrayBuffer output = Napi::ArrayBuffer::New(env, hash, RANDOMX_HASH_SIZE);
+	return Napi::ArrayBuffer::New(env, hash, RANDOMX_HASH_SIZE);
 }
 
 Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
