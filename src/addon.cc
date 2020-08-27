@@ -79,9 +79,12 @@ Napi::Object CreateVM(const Napi::CallbackInfo& info) {
 	return obj;
 }
 
-void ArrayBufferFinalizer(Napi::Env, void *data) {
-	std::uint8_t* pArrBuff = static_cast<std::uint8_t*>(data);
-	delete[] pArrBuff;
+void ArrayBufferFinalizer(Napi::Env env, void *data) {
+	// Napi::ArrayBuffer *arg = reinterpret_cast<Napi::ArrayBuffer*>(data);
+	// // &arg->As<Napi::ArrayBuffer>().a
+	// std::uint8_t* pArrBuff = static_cast<std::uint8_t*>(arg->Data()); //static_cast<std::uint8_t*>(data);
+	// delete[] pArrBuff;
+	delete data;
 }
 
 Napi::ArrayBuffer CalcHash(const Napi::CallbackInfo& info) {
