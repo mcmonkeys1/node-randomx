@@ -19,7 +19,7 @@ Napi::Object CreateVM(const Napi::CallbackInfo& info) {
 	const int keySize = arrBuf.ByteLength() / sizeof(std::uint8_t);
 
 	std::vector<std::string> nflags(arrFlags.Length());
-	for(int i  = 0; i < arrFlags.Length(); i++){
+	for(uint32_t i  = 0; i < arrFlags.Length(); i++){
 		Napi::Value val = arrFlags[i];
 		nflags.push_back(val.ToString());
 	}
@@ -79,13 +79,13 @@ Napi::Object CreateVM(const Napi::CallbackInfo& info) {
 	return obj;
 }
 
-void ArrayBufferFinalizer(Napi::Env env, void *data) {
-	// Napi::ArrayBuffer *arg = reinterpret_cast<Napi::ArrayBuffer*>(data);
-	// // &arg->As<Napi::ArrayBuffer>().a
-	// std::uint8_t* pArrBuff = static_cast<std::uint8_t*>(arg->Data()); //static_cast<std::uint8_t*>(data);
-	// delete[] pArrBuff;
-	delete data;
-}
+// void ArrayBufferFinalizer(Napi::Env env, void *data) {
+// 	// Napi::ArrayBuffer *arg = reinterpret_cast<Napi::ArrayBuffer*>(data);
+// 	// // &arg->As<Napi::ArrayBuffer>().a
+// 	// std::uint8_t* pArrBuff = static_cast<std::uint8_t*>(arg->Data()); //static_cast<std::uint8_t*>(data);
+// 	// delete[] pArrBuff;
+// 	delete data;
+// }
 
 Napi::ArrayBuffer CalcHash(const Napi::CallbackInfo& info) {
 	  Napi::Env env = info.Env();
@@ -113,7 +113,7 @@ Napi::ArrayBuffer CalcHash(const Napi::CallbackInfo& info) {
 	//randomx_release_dataset(dataset);
 
 	// static Napi::ArrayBuffer output = Napi::ArrayBuffer::New(env, hash, RANDOMX_HASH_SIZE);
-	return Napi::ArrayBuffer::New(env, hash, RANDOMX_HASH_SIZE, ArrayBufferFinalizer );
+	return Napi::ArrayBuffer::New(env, hash, RANDOMX_HASH_SIZE); //, ArrayBufferFinalizer );
 }
 
 Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
