@@ -79,13 +79,12 @@ Napi::Object CreateVM(const Napi::CallbackInfo& info) {
 	return obj;
 }
 
-// void ArrayBufferFinalizer(Napi::Env env, void *data) {
-// 	// Napi::ArrayBuffer *arg = reinterpret_cast<Napi::ArrayBuffer*>(data);
-// 	// // &arg->As<Napi::ArrayBuffer>().a
-// 	// std::uint8_t* pArrBuff = static_cast<std::uint8_t*>(arg->Data()); //static_cast<std::uint8_t*>(data);
-// 	// delete[] pArrBuff;
-// 	delete data;
-// }
+void ArrayBufferFinalizer(Napi::Env env, void *data) {
+	// experimental. we may need to declare global static memory
+	std::cout << "We're in finalizer. Attempting to release ArrayBuffer...";
+	delete[] static_cast<uint8_t*>(data);
+	std::cout << "The delete[] code finished.";
+}
 
 Napi::ArrayBuffer CalcHash(const Napi::CallbackInfo& info) {
 	  Napi::Env env = info.Env();
@@ -112,8 +111,7 @@ Napi::ArrayBuffer CalcHash(const Napi::CallbackInfo& info) {
 	//randomx_destroy_vm(nvm->vm);
 	//randomx_release_dataset(dataset);
 
-	// static Napi::ArrayBuffer output = Napi::ArrayBuffer::New(env, hash, RANDOMX_HASH_SIZE);
-	return Napi::ArrayBuffer::New(env, hash, RANDOMX_HASH_SIZE); //, ArrayBufferFinalizer );
+	return Napi::ArrayBuffer::New(env, hash, RANDOMX_HASH_SIZE, ArrayBufferFinalizer );
 }
 
 Napi::Object InitAll(Napi::Env env, Napi::Object exports) {
