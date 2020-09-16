@@ -83,7 +83,7 @@ void ArrayBufferFinalizer(Napi::Env env, void *data) {
 	// experimental. we may need to declare global static memory
 	std::cout << "node-randomx: Attempting to release ArrayBuffer..." << std::endl;
 	delete[] static_cast<uint8_t*>(data);
-	std::cout << "The delete[] code finished." << std::endl;
+	std::cout << "node-randomx: The delete[] ArrayBuffer code finished." << std::endl;
 }
 
 Napi::ArrayBuffer CalcHash(const Napi::CallbackInfo& info) {
