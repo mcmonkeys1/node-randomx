@@ -9,12 +9,14 @@
 #include <algorithm>
 
 class NrandomxVM : public Napi::ObjectWrap<NrandomxVM> {
-    public:
-        static void Init(Napi::Env env, Napi::Object exports);
-        static Napi::Object NewInstance(Napi::Value arg);
-        NrandomxVM(const Napi::CallbackInfo& info);
-        randomx_vm *vm;
-    private:
-        static Napi::FunctionReference constructor;
-        Napi::Value GetValue(const Napi::CallbackInfo& info);
+public:
+	static void Init(Napi::Env env, Napi::Object exports);
+	static Napi::Object NewInstance(Napi::Value arg);
+	NrandomxVM(const Napi::CallbackInfo& info);
+	randomx_vm *vm;
+	void Finalize(Napi::Env env);
+	~NrandomxVM();
+private:
+	static Napi::FunctionReference constructor;
+	Napi::Value GetValue(const Napi::CallbackInfo& info);
 };

@@ -5,15 +5,15 @@ bool getFlag(std::string str, std::vector<std::string> v){
 }
 
 Napi::Object CreateVM(const Napi::CallbackInfo& info) {
-    Napi::Env env = info.Env();
-		if (info.Length() != 2) {
-			throw Napi::Error::New(env, "C++ error. Expected exactly two arguments");
-		}
-		if(!info[0].IsArrayBuffer()){
-			throw Napi::Error::New(env, "C++ error. Expected a UInt8Array");
-		}
-   	Napi::ArrayBuffer arrBuf = info[0].As<Napi::ArrayBuffer>();
-   	Napi::Array arrFlags = info[1].As<Napi::Array>();
+	Napi::Env env = info.Env();
+	if (info.Length() != 2) {
+		throw Napi::Error::New(env, "C++ error. Expected exactly two arguments");
+	}
+	if(!info[0].IsArrayBuffer()){
+		throw Napi::Error::New(env, "C++ error. Expected a UInt8Array");
+	}
+	Napi::ArrayBuffer arrBuf = info[0].As<Napi::ArrayBuffer>();
+	Napi::Array arrFlags = info[1].As<Napi::Array>();
 
 	const std::uint8_t* key = reinterpret_cast<std::uint8_t*>(arrBuf.Data());
 	const int keySize = arrBuf.ByteLength() / sizeof(std::uint8_t);
@@ -75,7 +75,7 @@ Napi::Object CreateVM(const Napi::CallbackInfo& info) {
 		throw Napi::Error::New(env, "C++ error: randomx_create_vm() error");
 	}
     
-    Napi::Object obj = NrandomxVM::NewInstance(Napi::External<randomx_vm>::New(info.Env(), myMachine));
+	Napi::Object obj = NrandomxVM::NewInstance(Napi::External<randomx_vm>::New(info.Env(), myMachine));
 	return obj;
 }
 
@@ -97,7 +97,7 @@ Napi::ArrayBuffer CalcHash(const Napi::CallbackInfo& info) {
 		}
    	Napi::ArrayBuffer arrBuf = info[1].As<Napi::ArrayBuffer>();
 	
-	 std::uint8_t* hash = new std::uint8_t[RANDOMX_HASH_SIZE];
+	std::uint8_t* hash = new std::uint8_t[RANDOMX_HASH_SIZE];
 
 	const std::uint8_t* data = reinterpret_cast<std::uint8_t*>(arrBuf.Data());
 	const int dataSize = arrBuf.ByteLength() / sizeof(std::uint8_t);
