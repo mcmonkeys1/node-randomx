@@ -14,7 +14,7 @@ public:
 	static Napi::Object NewInstance(Napi::Value arg);
 	NrandomxVM(const Napi::CallbackInfo& info);
 	randomx_vm *vm;
-	void Finalize(Napi::Env env);
+	randomx_cache *cache;
 	~NrandomxVM();
 private:
 	static Napi::FunctionReference constructor;

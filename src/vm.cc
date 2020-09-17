@@ -24,15 +24,18 @@ Napi::Object NrandomxVM::NewInstance(Napi::Value arg) {
 	return obj;
 }
 
-void NrandomxVM::Finalize(Napi::Env env) {
-	//experimantial may need to release dataset also ??
-	std::cout << "node-randomx: Attempting to release VM" << std::endl;
-	randomx_destroy_vm(this->vm);
-	std::cout << "node-randomx: randomx_destroy_vm ran" << std::endl;
-}
 
 NrandomxVM::~NrandomxVM() {
-	std::cout << "node-randomx: D'tor attempting to release VM" << std::endl;
+	std::cerr << "node-randomx: D'tor attempting to release VM..." << std::endl;
 	randomx_destroy_vm(this->vm);
-	std::cout << "node-randomx: D'tor randomx_destroy_vm ran" << std::endl;
+	std::cerr << "node-randomx: D'tor ran randomx_destroy_vm" << std::endl;
 }
+
+
+			// if(myCache != nullptr){
+			// 	std::cerr << "node-randomx: D'tor: myCache != nullptr" << std::endl;
+			// 	randomx_release_cache(myCache);
+			// 	std::cerr << "node-randomx: D'tor: ran randomx_release_cache" << std::endl;
+			// } else {
+			// 	std::cerr << "node-randomx: D'tor: myCache == nullptr" << std::endl;
+			// }
