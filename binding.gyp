@@ -24,7 +24,6 @@
           }],
           ['OS=="win"', {
             "libraries": [
-              # "../../RandomX/build-mingw/librandomx.a"
               "../binaries/randomx.lib"
             ],
           }],
