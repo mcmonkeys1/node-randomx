@@ -1,10 +1,18 @@
-## node randomx
-NodeJS addon for Arweave's RandomX https://github.com/tevador/RandomX
+# ar node randomx
+NodeJS addon for RandomX (https://github.com/ArweaveTeam/RandomX)
 
 RandomX is a blockchain PoW consensus algorithm developed for CPU mining.
-This simple code helps you tu use RandomX C++ library in your Nodejs projects. 
+This library helps you to use RandomX C++ library in your Nodejs Arweave projects. 
 
-## How to use
+This fork differs from the orinal code by prudanoff in the following ways:
+
+- added i/o support for UInt8Arrays instead of Strings
+- comes with RandomX compiled against Arweave compatible version
+- compiles to an importable JS library with Typescript bindings
+- prebuilt library for Windows 10 included
+- should compile automatically against your linux system
+
+## How to install
 ~~Build RandomX from sources:~~
 
 ~~Clone this repo:~~
@@ -12,6 +20,8 @@ This simple code helps you tu use RandomX C++ library in your Nodejs projects.
 ~~Install node-gyp:~~
 
 ~~Build addon:~~
+
+Now just run
 ```
 npm install mcmonkeys1/node-randomx
 ```
