@@ -19,24 +19,27 @@ That's it :-)
 
 ## Example usage
 ```
-import { RandomxCreateVM, RandomxHash, RandomxVMReference } from 'ar-node-randomx'
+import { RandomxCreateVM, RandomxHash, RandomxVMReference } from 'arweave-nodejs-randomx'
 
-let key = Buffer.from("0410591dc8b3bba89f949212982f05deeb4a1947e939c62679dfc7610c62")
-let blob = Buffer.from("58249adafb690683a800ee8d6556e2a7d25864d577afbf709ceff9e3bdd5ebae")
+async function main(){
+	let key = Buffer.from("0410591dc8b3bba89f949212982f05deeb4a1947e939c62679dfc7610c62")
+	let blob = Buffer.from("58249adafb690683a800ee8d6556e2a7d25864d577afbf709ceff9e3bdd5ebae")
 
-let vm: RandomxVMReference
-console.log("Starting RandomX virtual machine...")
-try{
-	vm = RandomxCreateVM(key, ["jit", "ssse3"])
+	let vm: RandomxVMReference
+	console.log("Starting RandomX virtual machine...")
+	try{
+		vm = RandomxCreateVM(key, ["jit", "ssse3"])
+	}
+	catch(e){
+		console.log(e)
+		return 0
+	}
+
+	console.log("Start hashing...")
+	let	hash = RandomxHash(vm, blob)
+	console.log("hash: " + hash)
 }
-catch(e){
-	console.log(e)
-	return 0
-}
-
-console.log("Start hashing...")
-let	hash = RandomxHash(vm, blob)
-console.log("hash: " + hash)
+main();
 
 ```
 
