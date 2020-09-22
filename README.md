@@ -67,3 +67,10 @@ export type RandomxFlag =
 	| 'avx2'        // use optimized Argon2 for AVX2 CPUs
 ```
 
+## Troubleshooting
+
+If you are having trouble installing on any version of Windows apart from Windows 10 x64, you may need to uninstall, and install node-gyp for compiling the node-randomx C++ addon library first:
+
+```
+npm install --global --production windows-build-tools
+```
