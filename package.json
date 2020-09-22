@@ -3,11 +3,11 @@
   "version": "1.0.0",
   "description": "Fork of prudanoff's node-randomx. Modified for use as Arweave RandomX module",
   "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "echo \"Try running the examples.\" && exit 1",
     "install": "node-gyp-build",
-    "build": "node-gyp rebuild",
-    "clean": "node-gyp clean"
+    "build": "npx tsc"
   },
   "repository": {
     "type": "git",
