@@ -1,5 +1,5 @@
 {
-  "name": "arweave-nodejs-randomx",
+  "name": "ar-nodejs-randomx",
   "version": "1.0.0",
   "description": "Fork of prudanoff's node-randomx. Modified for use as Arweave RandomX module",
   "main": "index.js",
