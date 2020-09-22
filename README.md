@@ -36,7 +36,7 @@ async function main(){
 	}
 
 	console.log("Start hashing...")
-	let	hash = RandomxHash(vm, blob)
+	let hash = RandomxHash(vm, blob)
 	console.log("hash: " + hash)
 }
 main();
