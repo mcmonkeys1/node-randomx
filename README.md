@@ -1,41 +1,31 @@
-## node-randomx
+## node randomx
 NodeJS addon for RandomX https://github.com/tevador/RandomX
 
 RandomX is a blockchain PoW consensus algorithm developed for CPU mining.
 This simple code helps you tu use RandomX C++ library in your Nodejs projects. 
 
 ### How to use
-Build RandomX from sources:
-```
-git clone https://github.com/tevador/RandomX.git
-cd RandomX
-mkdir build && cd build
-cmake -DARCH=native ..
-make
-```
-Clone this repo:
-```
-git clone https://github.com/prudanoff/node-randomx.git
-cd node-randomx
-```
-Put `librandomx.a` next to `index.js` file. Or change library path in `binding.gyp`.
+~~Build RandomX from sources:~~
 
-Set your path to randomx.h in `./src/vm.h`:
-```
-#include "../../src/randomx.h"
-``` 
+~~Clone this repo:~~
 
-Install node-gyp:
-```
-npm install -g node-gyp
-```
-Build addon:
-```
-npm i
-```
-That's it! 
+~~Install node-gyp:~~
 
-### Examples
+~~Build addon:~~
+```
+npm install mcmonkeys1/node-randomx
+```
+That's it :-)
+
+###
+```
+import { .. } from 'node-randomx' ...
+
+COMING SOON!
+
+```
+
+### Internal examples are used for testing
 There are two files:
-* [example.js](example.js) - simple usage of RandomX.
-* [index.js](index.js) - "PoW-miner" example. You can set `target` which represents how many leading zeroes you want to get in your block's hash.
+* [test/example.js](test/example.js) - simple usage of RandomX.
+* [test/index.js](test/index.js) - "PoW-miner" example (not suitable for Arweave mining!)

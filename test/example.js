@@ -1,4 +1,5 @@
-var rx = require('./build/Release/addon');
+const rx = require('node-gyp-build')(__dirname + '/..')
+
 
 let key = new Uint8Array(Buffer.from("0410591dc8b3bba89f949212982f05deeb4a1947e939c62679dfc7610c62"))
 let blob = new Uint8Array(Buffer.from("58249adafb690683a800ee8d6556e2a7d25864d577afbf709ceff9e3bdd5ebae"))

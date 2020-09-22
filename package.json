@@ -1,21 +1,30 @@
 {
-  "name": "node-randomx",
+  "name": "arweave-nodejs-randomx",
   "version": "1.0.0",
-  "description": "Sources of Native C++ addon for RandomX library",
+  "description": "Fork of prudanoff's node-randomx. Modified for use as Arweave RandomX module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "install": "node-gyp rebuild",
+    "test": "echo \"Try running the examples.\" && exit 1",
+    "install": "node-gyp-build",
     "build": "node-gyp rebuild",
     "clean": "node-gyp clean"
   },
-  "author": "prudanoff",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mcmonkeys1/node-randomx.git"
+  },
+  "author": "Ros McMahon <rosmcmahon@gmail.com>",
   "license": "ISC",
   "gypfile": true,
   "dependencies": {
-    "node-addon-api": "^1.7.2"
+    "node-addon-api": "^1.7.2",
+    "node-gyp-build": "^4.2.3",
+    "prebuildify": "^4.1.0"
   },
   "devDependencies": {
-    "node-gyp": "^7.1.0"
+    "@types/node": "^14.11.1",
+    "node-gyp": "^7.1.0",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.3"
   }
 }

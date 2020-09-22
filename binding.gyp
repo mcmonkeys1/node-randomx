@@ -29,8 +29,8 @@
           }],
        ],
       "sources": [  
-        "./src/addon.cc",
-        "./src/vm.cc"
+        "./src-cpp/addon.cc",
+        "./src-cpp/vm.cc"
       ],      
     }
   ]

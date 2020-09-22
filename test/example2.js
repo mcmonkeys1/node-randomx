@@ -1,4 +1,4 @@
-var randomx = require('./build/Release/addon');
+const randomx = require('node-gyp-build')(__dirname + '/..')
 let crypto = require('crypto');
 
 	//mine        mining mode: 2080 MiB
