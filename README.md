@@ -19,7 +19,7 @@ That's it :-)
 
 ## Example usage
 ```
-import { RandomxCreateVM, RandomxHash, RandomxVMReference } from 'arweave-nodejs-randomx'
+import { RandomxCreateVM, RandomxHash, RandomxVMReference } from 'ar-node-randomx'
 
 async function main(){
 	let key = Buffer.from("0410591dc8b3bba89f949212982f05deeb4a1947e939c62679dfc7610c62")
