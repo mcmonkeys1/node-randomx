@@ -7,6 +7,7 @@
   "scripts": {
     "test": "echo \"Try running the examples.\" && exit 1",
     "install": "node-gyp-build",
+    "prebuild": "prebuildify --napi",
     "build": "npx tsc"
   },
   "repository": {

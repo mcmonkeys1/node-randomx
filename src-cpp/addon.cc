@@ -1,5 +1,8 @@
 #include "vm.h"
 
+
+
+
 bool getFlag(std::string str, std::vector<std::string> v){
 	return std::find(v.begin(), v.end(), str) != v.end();
 }
@@ -70,12 +73,17 @@ Napi::Object CreateVM(const Napi::CallbackInfo& info) {
 		myCache = nullptr;
 	}
 	
-	randomx_vm *myMachine = randomx_create_vm(flags, myCache, dataset);
-	if (myMachine == nullptr) {
+	randomx_vm *myVm = randomx_create_vm(flags, myCache, dataset);
+	if (myVm == nullptr) {
 		throw Napi::Error::New(env, "C++ error: randomx_create_vm() error");
 	}
+
+	vm_state *myState = new vm_state;
+	myState->vm = myVm;
+	myState->cache = myCache;
+	myState->dataset = dataset;
     
-	Napi::Object obj = NrandomxVM::NewInstance(Napi::External<randomx_vm>::New(info.Env(), myMachine));
+	Napi::Object obj = NrandomxVM::NewInstance(Napi::External<vm_state>::New(info.Env(), myState));
 
 	return obj;
 }
@@ -98,7 +106,7 @@ Napi::ArrayBuffer CalcHash(const Napi::CallbackInfo& info) {
 	const int dataSize = arrBuf.ByteLength() / sizeof(std::uint8_t);
 
 
-	randomx_calculate_hash(nvm->vm, data, dataSize, hash);
+	randomx_calculate_hash(nvm->vmState->vm, data, dataSize, hash);
 
 	//randomx_dataset* dataset;
 	//randomx_get_dataset_memory(dataset);
