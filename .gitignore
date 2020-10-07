@@ -1,3 +1,6 @@
+# scratch
+test/scratch*
+
 # Logs
 logs
 *.log
