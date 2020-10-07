@@ -69,8 +69,9 @@ export type RandomxFlag =
 
 ## Troubleshooting
 
-If you are having trouble installing on any version of Windows apart from Windows 10 x64, you may need to uninstall, and install node-gyp for compiling the node-randomx C++ addon library first:
+If you are having trouble installing on any version of Windows apart from Windows 10 x64, you may need to install node-gyp for compiling the node-randomx library first:
 
 ```
 npm install --global --production windows-build-tools
 ```
+For all other OSes take a look at the rest of the [node-gyp installion instructions](https://github.com/nodejs/node-gyp#installation) for node-gyp for prerequisites.
