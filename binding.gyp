@@ -17,9 +17,14 @@
       'dependencies': ["<!(node -p \"require('node-addon-api').gyp\")"],
       "target_name": "addon",
       'conditions': [
-          ['OS=="linux"', {
+          ['OS=="linux" and target_arch=="x64"', {
             "libraries": [
               "../binaries/librandomx.a"
+            ],
+          }],
+          ['OS=="linux" and target_arch=="arm64"', {
+            "libraries": [
+              "../binaries/librandomx.pi4.a"
             ],
           }],
           ['OS=="win"', {
